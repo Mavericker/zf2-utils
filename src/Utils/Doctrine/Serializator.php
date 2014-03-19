@@ -3,6 +3,7 @@ namespace Utils\Doctrine;
 
 class Serializator {
 
+
     /**
      * Converts the Doctrine Entity into a JSON Representation
      *
