@@ -30,7 +30,7 @@ class Serializator {
      * @return NULL|Array
      *
      */
-    public static function toArray($object, $depth = 1,$whitelist=array(), $blacklist=array()){
+    public static function toArray($object, $depth = 1,$whitelist=array(), $blacklist=array(), $dateFormat = 'd.m.Y H:i'){
 
         // If we drop below depth 0, just return NULL
         if ($depth < 0){
@@ -46,13 +46,13 @@ class Serializator {
             // The Loop
             foreach ($object as $value){
                 // Store the results
-                $anArray[] = Serializator::arrayizor($value, $depth, $whitelist, $blacklist);
+                $anArray[] = Serializator::arrayizor($value, $depth, $whitelist, $blacklist, $dateFormat);
             }
             // Return it
             return $anArray;
         }else{
             // Just return it
-            return Serializator::arrayizor($object, $depth, $whitelist, $blacklist);
+            return Serializator::arrayizor($object, $depth, $whitelist, $blacklist, $dateFormat);
         }
     }
 
@@ -65,7 +65,7 @@ class Serializator {
      * @param array $blacklist List of entity=>array(parameters) to skip
      * @return NULL|Array
      */
-    private static function arrayizor($anObject, $depth, $whitelist=array(), $blacklist=array()){
+    private static function arrayizor($anObject, $depth, $whitelist=array(), $blacklist=array(), $dateFormat){
         // Determine the next depth to use
         $nextDepth = $depth - 1;
 
@@ -129,7 +129,7 @@ class Serializator {
             if (is_object($aValue)){
                 // If it is a datetime, lets make it a string
                 if (get_class($aValue) === 'DateTime'){
-                    $anArray[$prop->name] = $aValue->format('Y-m-d H:i:s');
+                    $anArray[$prop->name] = $aValue->format($dateFormat);
 
                     // If it is a Doctrine Collection, we need to loop through it
                 }elseif(get_class($aValue) ==='Doctrine\ORM\PersistentCollection'){
