@@ -129,7 +129,7 @@ class Serializator {
             if (is_object($aValue)){
                 // If it is a datetime, lets make it a string
                 if (get_class($aValue) === 'DateTime'){
-                    $anArray[$prop->name] = $aValue->format($dateFormat);
+                    $anArray[$prop->name] = $aValue->getTimestamp();
 
                     // If it is a Doctrine Collection, we need to loop through it
                 }elseif(get_class($aValue) ==='Doctrine\ORM\PersistentCollection'){
