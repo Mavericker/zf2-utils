@@ -111,7 +111,7 @@ class Serializator {
             $property_name = ucfirst($prop->name);
             // And check to see that it exists for this object
             if (! method_exists($anObject, $method_name)){
-                if(! property_exists($anObject, $property_name))
+                if(! property_exists($anObject, $property_name) || $property_name === '_elements')
                 {
                     continue;
                 } else {
